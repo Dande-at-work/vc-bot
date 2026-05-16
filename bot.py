@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import os
 
-TOKEN = os.getenv("MTUwNTA3NDY2MjE2MDIwMzg5OA.GchuoJ.EUsOj5CLMhNr2bridecuux8DY7cf7qFKg3V79I")
+TOKEN = os.getenv("TOKEN")
 VC_ID = 1505093424028581939
 
 intents = discord.Intents.default()
