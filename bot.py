@@ -3,7 +3,7 @@ from discord.ext import commands, tasks
 import os
 
 TOKEN = os.getenv("TOKEN")
-VC_ID = 1505202462703747224
+VC_ID = 1505206226806636720
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
