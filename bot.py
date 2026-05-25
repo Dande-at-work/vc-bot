@@ -1,47 +1,40 @@
 import discord
-from discord.ext import commands, tasks
+from discord.ext import tasks, commands
 import os
 
 TOKEN = os.getenv("TOKEN")
+
 VC_ID = 1505265983454056610
 
 intents = discord.Intents.default()
+
 bot = commands.Bot(command_prefix="!", intents=intents)
+
 
 @bot.event
 async def on_ready():
-    activity = 
-discord.CudtomActivity(name="yapping and streaming")
-
-    await
-bot.change_presence(activity=activity)
+    activity = discord.Game(name="yapping")
+    await bot.change_presence(activity=activity)
 
     print(f"Logged in as {bot.user}")
 
     keep_alive.start()
 
-@tasks.loop(seconds=20)
-async def keep_alive():
-    print("Checking VC...")
 
+@tasks.loop(seconds=30)
+async def keep_alive():
     channel = bot.get_channel(VC_ID)
 
     if channel is None:
         print("Channel not found")
         return
 
-    print(f"Found channel: {channel.name}")
+    if len(bot.voice_clients) == 0:
+        try:
+            await channel.connect(reconnect=True)
+            print("Connected to VC")
+        except Exception as e:
+            print(e)
 
-    for vc in bot.voice_clients:
-        if vc.channel.id == VC_ID:
-            print("Already connected")
-            return
-
-     if len(bot.voice_clients) == 0:
-    try:
-        await channel.connect(reconnect=True)
-        print("Connected to VC")
-    except Exception as e:
-        print(e)
 
 bot.run(TOKEN)
