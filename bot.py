@@ -37,9 +37,10 @@ async def keep_alive():
             print("Already connected")
             return
 
+     if len(bot.voice_clients) == 0:
     try:
         await channel.connect(reconnect=True)
-        print("Connected to VC and yapping")
+        print("Connected to VC")
     except Exception as e:
         print(e)
 
