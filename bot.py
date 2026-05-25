@@ -31,12 +31,8 @@ async def keep_alive():
             return
 
     try:
-        vc = await channel.connect(reconnect=True)
-
-source = discord.FFmpegPCMAudio("silent.mp3")
-vc.play(source)
-
-print("Connected to VC and yapping")
+        await channel.connect(reconnect=True)
+        print("Connected to VC and yapping")
     except Exception as e:
         print(e)
 
