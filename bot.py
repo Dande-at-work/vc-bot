@@ -10,7 +10,14 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
+    activity = 
+discord.CudtomActivity(name="yapping and streaming")
+
+    await
+bot.change_presence(activity=activity)
+
     print(f"Logged in as {bot.user}")
+
     keep_alive.start()
 
 @tasks.loop(seconds=20)
