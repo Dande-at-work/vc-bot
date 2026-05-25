@@ -21,19 +21,6 @@ YDL_OPTIONS = {
     'noplaylist': True
 }
 
-
-@bot.event
-async def on_ready():
-
-    await bot.change_presence(
-    activity=discord.CustomActivity(name="yapping")
-    )
-
-    print(f"Logged in as {bot.user}")
-
-    keep_alive.start()
-
-
 @tasks.loop(seconds=30)
 async def keep_alive():
 
@@ -51,8 +38,21 @@ async def keep_alive():
 
             import yt_dlp
 
+            YDL_OPTIONS = {
+                'format': 'bestaudio',
+                'noplaylist': True
+            }
+
+            FFMPEG_OPTIONS = {
+                'options': '-vn'
+            }
+
             with yt_dlp.YoutubeDL(YDL_OPTIONS) as ydl:
-                info = ydl.extract_info(LOFI_URL, download=False)
+                info = ydl.extract_info(
+                    "https://www.youtube.com/watch?v=DWcJFNfaw9c",
+                    download=False
+                )
+
                 url2 = info['url']
 
             source = await discord.FFmpegOpusAudio.from_probe(
@@ -62,10 +62,9 @@ async def keep_alive():
 
             vc.play(source)
 
-            print("Playing lofi")
+            print("Music playing")
 
         except Exception as e:
             print(e)
-
 
 bot.run(TOKEN)
